@@ -71,4 +71,4 @@ const Feature = (props) => {
 
 }
 
-export default Feature;
+ export default Feature;

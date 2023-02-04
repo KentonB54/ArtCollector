@@ -1,3 +1,20 @@
+//import Feature from './Feature';
+import Loading from './Loading';
+//import Preview from './Preview';
+import Search from './Search';
+import Title from './Title';
+
+
+export {Loading, Title, Search};
+//export { Feature } from './Feature';
+//export { Preview } from './Preview';
+
+
+
+
+
+
+
 /**
  * The index.js file is used to re-export from our separate files, that way rather than write:
  * 
