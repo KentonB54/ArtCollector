@@ -54,7 +54,32 @@ const Preview = (props) => {
     </header>
     <section className="results">
       {
-        /* Here we should map over the records, and render something like this for each one:
+        records.map((record) => (
+          <div  
+            key={ record.id }
+            className="object-preview"
+            onClick={(event) => {
+              event.preventDefault()// prevent the default
+              setFeaturedResult(record)// set the featured result to be this record, using setFeaturedResult
+            }}>
+            <a href="#">
+            { 
+              record.primaryimageurl ? (<img src= {record.primaryimageurl } alt={ record.description } />) : ('')// if the record.primaryimageurl exists, show this: <img src={ record.primaryimageurl } alt={ record.description } />, otherwise show nothing 
+            }
+            {
+              record.title ? (<h3>{ record.title }</h3>) : (<h3>MISSING INFO</h3>)// if the record.title exists, add this: <h3>{ record.title }</h3>, otherwise show this: <h3>MISSING INFO</h3>
+            }
+            </a>
+          </div>
+        ))
+     
+      }
+    </section>
+  </aside>
+}
+
+ export default Preview;
+    /* Here we should map over the records, and render something like this for each one:
           <div  
             key={ index }
             className="object-preview"
@@ -70,9 +95,3 @@ const Preview = (props) => {
             }
           </div>
         */
-      }
-    </section>
-  </aside>
-}
-
- export default Preview;
