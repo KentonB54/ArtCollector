@@ -47,13 +47,19 @@ const Searchable = (props) => {
  *       <h4>WHEN IT IS DATED</h4>
  *     </header>
  *     <section className="facts">
+ * <
  *       <span className="title">FACT NAME</span>
  *       <span className="content">FACT VALUE</span>
- *       <span className="title">NEXT FACT NAME</span>
- *       <span className="content">NEXT FACT VALUE</span>
+ * />
+ * <React.Fragment **write key here** **only using, if mapping**>
+ *       <span className="title">Person</span>
+ *       <Searchable />
+ * </React.Fragment>
+ * 
  *     </section>
  *     <section className="photos">
- *       <img src=IMAGE_URL alt=SOMETHING_WORTHWHILE />
+ *         ***mapping for image here***
+ *       <img **key here** src=IMAGE_URL alt=SOMETHING_WORTHWHILE />
  *     </section>
  *   </div>
  * </main>
