@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { fetchQueryResultsFromTermAndValue } from '../api';
 
 
-//TESTING
+
 /**
  * We need a new component called Searchable which:
  * 
@@ -32,7 +32,27 @@ import { fetchQueryResultsFromTermAndValue } from '../api';
  *  - call setIsLoading, set it to false
  */
 const Searchable = (props) => {
-  
+    const {
+        searchTerm, 
+        searchValue,
+        setIsLoading,
+        setSearchResults, 
+        } = props;
+
+  <span className="content">
+    <a href="#" onClick={async (event) => {
+        event.preventDefault()
+        setIsLoading(true)
+        try {
+            const result = fetchQueryResultsFromTermAndValue({searchTerm, searchValue})
+            setSearchResults(result)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
+    }}>{searchTerm}</a>
+  </span>
 }
 
 /**
@@ -77,6 +97,95 @@ const Searchable = (props) => {
  */
 const Feature = (props) => {
 
+    const {featuredResult, setIsLoading, setSearchResults} = props
+    const { 
+    images,
+    title,
+    primaryimageurl,
+    dated,
+    description,
+    culture,
+    style,
+    technique,
+    medium,
+    dimensions,
+    people,
+    department,
+    division,
+    contact,
+    creditline 
+    } = featuredResult || {};
+
+return ( 
+    <main id="feature">
+    <div className="object-feature">
+      <header>
+        <h3>{title}</h3>
+        <h4>{dated}</h4>
+      </header>
+      <section className="facts">
+
+    <React.Fragment>
+      <span className="title">Culture</span>
+      <a href="#">
+      <span className="content">{culture}</span>
+      </a>
+    </React.Fragment>
+    
+     <React.Fragment>
+      <span className="title">Technique</span>
+      <a href="#">
+      <span className="content">{technique}</span>
+      </a>
+    </React.Fragment>
+    
+      <span className="title">Medium</span>
+      <a href="#">
+      <span className="content">{medium}</span>
+      </a>
+    <React.Fragment>
+      <span className="title">Dimensions</span>
+      <span className="content">{dimensions}</span>
+    </React.Fragment>
+
+    <React.Fragment>
+      {/* map over person */}
+    </React.Fragment>
+
+    <React.Fragment>
+      <span className="title">Department</span>
+      <span className="content">{department}</span>
+    </React.Fragment>
+
+    <React.Fragment>
+      <span className="title">Division</span>
+      <span className="content">{division}</span>
+    </React.Fragment>
+      <span className="title">Contact</span>
+      <span className="content">{contact}</span>
+    <React.Fragment>
+      <span className="title">Credit</span>
+      <span className="content">{creditline}</span>
+    </React.Fragment>
+      </section>
+
+      <section className="photos">
+    {
+    images.map(image => (
+    <div key = {image.id}></div>
+    ))    
+    }
+    <img key={image.id} src={image.primaryimageurl } alt={ image.description }></img>
+    </section>
+    </div>
+    </main>
+)
+ 
+
+   
+
 }
 
  export default Feature;
+
+//  <img **key here** src=IMAGE_URL alt=SOMETHING_WORTHWHILE />
