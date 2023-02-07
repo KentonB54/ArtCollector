@@ -38,21 +38,22 @@ const Searchable = (props) => {
         setIsLoading,
         setSearchResults, 
         } = props;
-
+return (
   <span className="content">
     <a href="#" onClick={async (event) => {
         event.preventDefault()
         setIsLoading(true)
         try {
-            const result = fetchQueryResultsFromTermAndValue({searchTerm, searchValue})
+            const result = await fetchQueryResultsFromTermAndValue(searchTerm, searchValue)
             setSearchResults(result)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         } finally {
             setIsLoading(false)
         }
     }}>{searchTerm}</a>
   </span>
+ )
 }
 
 /**
@@ -97,7 +98,9 @@ const Searchable = (props) => {
  */
 const Feature = (props) => {
 
-    const {featuredResult, setIsLoading, setSearchResults} = props
+
+    const {featuredResult, setIsLoading, setSearchResults} = props;
+
     const { 
     images,
     title,
@@ -114,78 +117,125 @@ const Feature = (props) => {
     division,
     contact,
     creditline 
-    } = featuredResult || {};
+    } = featuredResult;
 
 return ( 
     <main id="feature">
     <div className="object-feature">
-      <header>
-        <h3>{title}</h3>
-        <h4>{dated}</h4>
-      </header>
-      <section className="facts">
+    <header>
+      <h3>{title}</h3>
+      <h4>{dated}</h4>
+    </header>
+    <section className="facts">
 
-    <React.Fragment>
-      <span className="title">Culture</span>
-      <a href="#">
-      <span className="content">{culture}</span>
-      </a>
-    </React.Fragment>
-    
-     <React.Fragment>
-      <span className="title">Technique</span>
-      <a href="#">
-      <span className="content">{technique}</span>
-      </a>
-    </React.Fragment>
-    
-      <span className="title">Medium</span>
-      <a href="#">
-      <span className="content">{medium}</span>
-      </a>
-    <React.Fragment>
-      <span className="title">Dimensions</span>
-      <span className="content">{dimensions}</span>
-    </React.Fragment>
-
-    <React.Fragment>
-      {/* map over person */}
-    </React.Fragment>
-
-    <React.Fragment>
+    {/* <Fragment>
       <span className="title">Department</span>
       <span className="content">{department}</span>
-    </React.Fragment>
+    </Fragment> */}
 
-    <React.Fragment>
-      <span className="title">Division</span>
-      <span className="content">{division}</span>
-    </React.Fragment>
-      <span className="title">Contact</span>
-      <span className="content">{contact}</span>
-    <React.Fragment>
-      <span className="title">Credit</span>
-      <span className="content">{creditline}</span>
-    </React.Fragment>
-      </section>
+    {/* <Fragment>
+      <span className="title">Medium</span>
+      <Searchable 
+      searchTerm={medium}
+      searchValue={medium}
+      setIsLoading={setIsLoading}
+      setSearchResults={setSearchResults}/>
+    </Fragment> */}
 
-      <section className="photos">
-    {
-    images.map(image => (
-    <div key = {image.id}></div>
-    ))    
-    }
-    <img key={image.id} src={image.primaryimageurl } alt={ image.description }></img>
+          {medium && (
+              <>
+              <span className="title">Medium</span>
+              <Searchable
+              searchTerm={medium.toLowerCase()}
+              searchValue={medium.toLowerCase()}
+              setIsLoading={setIsLoading}
+              setSearchResults={setSearchResults}/>
+              </>)
+            }
+
+          {people && (
+            people.map(person => (
+            <Fragment key={person.personid}>
+            <span className="title">Person</span>
+            
+            <Searchable 
+            searchTerm={person.displayname}
+            searchValue={person.displayname}
+            setIsLoading={setIsLoading}
+            setSearchResults={setSearchResults}/>
+            </Fragment>
+            ))
+          )}
+
     </section>
+
+    <section className="photos">
+      {images ? (
+        images.map(image =>
+          <img key={image.imageid} src={image.baseimageurl} alt={image.description}/>)
+      ) : (
+        <img src={primaryimageurl} alt={primaryimageurl}/>
+      )}
+    </section>
+
+
+
+
     </div>
     </main>
-)
- 
-
-   
-
+  )
 }
 
  export default Feature;
 
+
+
+
+
+
 //  <img **key here** src=IMAGE_URL alt=SOMETHING_WORTHWHILE />
+
+{/* <Fragment>
+      <span className="title">Culture</span>
+      <a href="#">
+      <span className="content">{culture}</span>
+      </a>
+    </Fragment>
+
+    {technique &&
+    <Fragment>
+      <span className="title">Technique</span>
+      <a href="#">
+      <span className="content">{technique}</span>
+      </a>
+    </Fragment>
+    } */}
+       {/* <Fragment>
+      <span className="title">Dimensions</span>
+      <span className="content">{dimensions}</span>
+    </Fragment>
+    
+    <Fragment>
+      <span className="title">Department</span>
+      <span className="content">{department}</span>
+    </Fragment>
+
+    <Fragment>
+      <span className="title">Division</span>
+      <span className="content">{division}</span>
+    </Fragment>
+
+    <Fragment>
+      <span className="title">Contact</span>
+        <a href="#">
+      <span className="content">{contact}</span>
+        </a>
+    </Fragment>
+
+    <Fragment>
+      <span className="title">Credit</span>
+      <span className="content">{creditline}</span>
+    </Fragment>
+    </section>
+
+    <section className="photos"> */}

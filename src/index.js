@@ -12,7 +12,7 @@ import {
 
 const App = () => {
   const [searchResults, setSearchResults] = useState({info: {}, records: []});
-  const [featuredResult, setFeaturedResult] = useState(null);
+  const [featuredResult, setFeaturedResult] = useState();
   const [isLoading, setIsLoading] = useState(false);
   /**
    * We are at the App level component, which is top-most. Any state which needs to be shared between immediate children should
@@ -31,7 +31,7 @@ const App = () => {
     {/* <Preview /> needs props for searchResults, setIsLoading and setSearchResults (clicking prev/next buttons), and setFeaturedResult (clicking a preview) */}
     <Preview searchResults={searchResults} setIsLoading={setIsLoading} setSearchResults={setSearchResults} setFeaturedResult={setFeaturedResult} />
     {/* <Feature /> needs props for featuredResult, as well as setIsLoading and setSearchResults (clicking on searchable properties) */}
-    <Feature featuredResult={featuredResult} setIsLoading={setIsLoading} setSearchResults={setSearchResults} />
+    {featuredResult !== undefined && <Feature featuredResult={featuredResult} setIsLoading={setIsLoading} setSearchResults={setSearchResults} />}
     {/* <Loading /> is static, but should only render when isLoading is true */}
     
     {isLoading ? (<Loading />) : ('')}

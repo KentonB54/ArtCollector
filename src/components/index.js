@@ -6,8 +6,7 @@ import Title from './Title';
 
 
 export {Loading, Title, Search, Preview, Feature};
-//export { Feature } from './Feature';
-//export { Preview } from './Preview';
+
 
 
 
